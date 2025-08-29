@@ -2,6 +2,13 @@
 
 Self-hosted CLIP Interrogator application that analyzes images and generates descriptive JSON-format prompts for high-quality image generation using Gemini 2.5 Flash Image (nano-banana) via the Gemini API.
 
+## 🖼️ Application Preview
+
+<div align="center">
+  <img src="docs/images/screenshots/hero-interface.png" alt="Gemini nano-banana CLIP Interrogator - Clean, professional interface" width="800"/>
+  <p><em>Clean, intuitive interface optimized for professional image analysis workflows</em></p>
+</div>
+
 ## 🚀 Features
 
 - **Advanced Image Analysis**: Upload images and get detailed, narrative-style prompts optimized for Gemini 2.5 Flash Image
@@ -107,6 +114,34 @@ npm run test:coverage
 ├── vitest.config.ts    # Test configuration
 └── package.json        # Dependencies and scripts
 ```
+
+## 📸 More Screenshots
+
+<details>
+<summary>🖼️ View Additional Interface Screenshots</summary>
+
+### Key Features Demonstrated
+
+**Professional Interface Design**
+- Clean, minimalist layout focused on functionality
+- Intuitive drag-and-drop file upload with visual feedback
+- Professional typography and spacing optimized for readability
+
+**Advanced Configuration Options**
+- Multiple artistic styles: Photorealistic, Digital Painting, Watercolor, Anime, Cinematic
+- Creativity control slider for fine-tuning generation parameters
+- Negative prompt support for precise output control
+- Secure API key management with runtime-only handling
+
+**Workflow Optimization**
+- Step-by-step guided process from image upload to prompt generation
+- Real-time editing capabilities for generated prompts
+- Copy-to-clipboard functionality for easy prompt sharing
+- Comprehensive error handling with user-friendly messages
+
+*Additional screenshots showing the complete workflow will be added as the application evolves.*
+
+</details>
 
 ## ☁️ Cloud Infrastructure Compatibility
 
