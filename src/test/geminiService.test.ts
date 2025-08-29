@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generatePromptFromImage, generateImage } from '../../services/geminiService';
 
 // Mock the GoogleGenAI class
+const mockGenerateContent = vi.fn();
 vi.mock('@google/genai', () => ({
   GoogleGenAI: vi.fn().mockImplementation(() => ({
     models: {
-      generateContent: vi.fn(),
+      generateContent: mockGenerateContent,
     }
   })),
   Type: {
@@ -23,6 +24,7 @@ describe('geminiService', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockGenerateContent.mockReset();
   });
 
   describe('generatePromptFromImage', () => {
@@ -39,10 +41,7 @@ describe('geminiService', () => {
     });
 
     it('should handle API key errors', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
-      vi.mocked(mockInstance.models.generateContent).mockRejectedValue(
+      mockGenerateContent.mockRejectedValue(
         new Error('API key unauthorized')
       );
 
@@ -52,10 +51,7 @@ describe('geminiService', () => {
     });
 
     it('should handle rate limit errors', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
-      vi.mocked(mockInstance.models.generateContent).mockRejectedValue(
+      mockGenerateContent.mockRejectedValue(
         new Error('Rate limit exceeded')
       );
 
@@ -65,10 +61,7 @@ describe('geminiService', () => {
     });
 
     it('should handle network errors', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
-      vi.mocked(mockInstance.models.generateContent).mockRejectedValue(
+      mockGenerateContent.mockRejectedValue(
         new Error('Network connection failed')
       );
 
@@ -78,9 +71,6 @@ describe('geminiService', () => {
     });
 
     it('should successfully generate prompt with valid inputs', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
       const mockResponse = {
         text: JSON.stringify({
           subject: 'A detailed scene',
@@ -94,10 +84,10 @@ describe('geminiService', () => {
         })
       };
 
-      vi.mocked(mockInstance.models.generateContent).mockResolvedValue(mockResponse);
+      mockGenerateContent.mockResolvedValue(mockResponse);
 
       const result = await generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt);
-      
+
       expect(result).toContain('A detailed scene');
       expect(result).toContain('photorealistic');
       expect(typeof result).toBe('string');
@@ -113,10 +103,7 @@ describe('geminiService', () => {
     });
 
     it('should handle API errors appropriately', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
-      vi.mocked(mockInstance.models.generateContent).mockRejectedValue(
+      mockGenerateContent.mockRejectedValue(
         new Error('Content policy violation')
       );
 
@@ -126,9 +113,6 @@ describe('geminiService', () => {
     });
 
     it('should successfully generate image with valid inputs', async () => {
-      const { GoogleGenAI } = await import('@google/genai');
-      const mockInstance = new GoogleGenAI({ apiKey: mockApiKey });
-      
       const mockResponse = {
         candidates: [{
           content: {
@@ -141,10 +125,10 @@ describe('geminiService', () => {
         }]
       };
 
-      vi.mocked(mockInstance.models.generateContent).mockResolvedValue(mockResponse);
+      mockGenerateContent.mockResolvedValue(mockResponse);
 
       const result = await generateImage('test prompt', mockApiKey);
-      
+
       expect(result).toBe('data:image/png;base64,mockbase64imagedata');
     });
   });
