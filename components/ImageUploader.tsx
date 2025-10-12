@@ -35,7 +35,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, onImageRem
       }
 
       if (file.size > recommendedSizeInBytes) {
-        console.warn(`Large file detected (${(file.size / 1024 / 1024).toFixed(1)}MB). This may take longer to process.`);
+        if (import.meta.env.DEV) {
+          console.warn(`Large file detected (${(file.size / 1024 / 1024).toFixed(1)}MB). This may take longer to process.`);
+        }
       }
 
       const reader = new FileReader();
@@ -49,13 +51,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, onImageRem
             onUploadError("Failed to read the image file. Please try again.");
           }
         } catch (error) {
-          console.error("Error processing file:", error);
+          if (import.meta.env.DEV) {
+            console.error("Error processing file:", error);
+          }
           onUploadError("Failed to process the image file. Please try again.");
         }
       };
 
       reader.onerror = () => {
-        console.error("FileReader error:", reader.error);
+        if (import.meta.env.DEV) {
+          console.error("FileReader error:", reader.error);
+        }
         onUploadError("Failed to read the image file. The file may be corrupted or too large.");
       };
 
@@ -66,7 +72,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, onImageRem
       try {
         reader.readAsDataURL(file);
       } catch (error) {
-        console.error("Error starting file read:", error);
+        if (import.meta.env.DEV) {
+          console.error("Error starting file read:", error);
+        }
         onUploadError("Failed to start reading the image file. Please try again.");
       }
     }

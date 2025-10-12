@@ -50,7 +50,9 @@ const OptimizedPromptDisplay: React.FC<OptimizedPromptDisplayProps> = ({ prompt,
                 }
             }
         } catch (error) {
-            console.error('Failed to copy text:', error);
+            if (import.meta.env.DEV) {
+                console.error('Failed to copy text:', error);
+            }
             // Show a brief error indication
             setCopied(false);
             // Could add a toast notification here in the future

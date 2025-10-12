@@ -171,10 +171,12 @@ npm run test:coverage
 
 ## 🔒 Security Notes
 
-- API keys are handled at runtime only - never exposed in client bundles
-- File uploads are validated for type and size
-- All user inputs are sanitized
-- HTTPS recommended for production deployments
+- **API Key Security**: API keys are handled at runtime only - never exposed in client bundles
+- **File Validation**: File uploads are validated for type and size (PNG, JPG, WEBP up to 10MB)
+- **Input Sanitization**: All user inputs are sanitized and validated
+- **HTTPS Required**: HTTPS recommended for production deployments
+- **No Data Persistence**: No user data or API keys are stored permanently
+- **Development Logging**: Console statements are wrapped in development-only checks
 
 ## 📚 API Reference
 

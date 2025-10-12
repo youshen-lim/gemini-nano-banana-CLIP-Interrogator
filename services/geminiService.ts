@@ -183,7 +183,9 @@ IMPORTANT: Avoid including these concepts or elements in your description: "${ne
 
     return optimizedPrompt;
   } catch (error) {
-    console.error("Error analyzing image:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error analyzing image:", error);
+    }
 
     // Handle specific error types with user-friendly messages
     if (error instanceof SyntaxError) {
@@ -250,7 +252,9 @@ export async function generateImage(prompt: string, apiKey: string): Promise<str
 
     return `data:image/png;base64,${base64ImageBytes}`;
   } catch (error) {
-    console.error("Error generating image:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error generating image:", error);
+    }
 
     // Handle specific error types with user-friendly messages
     if (error instanceof Error) {
