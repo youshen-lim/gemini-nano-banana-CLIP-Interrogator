@@ -197,7 +197,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## 📝 Corrections
 
-The following items were corrected on **November 20, 2026** after a check against the code, tests and Google model documentation. This correction changes documentation only. It does not fix the model ID or TypeScript issues described above.
+The following items were corrected on **November 20, 2026** after a check against the code, tests and Google model documentation. I also changed the model IDs in the code on November 20, 2026 (commit `c05b0f0`, pull request #4). The TypeScript type errors described above remain unfixed.
 
 | Item | Previously stated | Corrected to | Cause |
 |------|-------------------|--------------|-------|
@@ -218,6 +218,7 @@ The following items were corrected on **November 20, 2026** after a check agains
 | Model status | Not stated | Preview image model listed as shut down on January 15, 2026 | Google deprecations page. |
 | Model IDs | `gemini-2.5-flash` and `gemini-2.5-flash-image-preview` | `gemini-3.5-flash-lite` and `gemini-nano-banana-2.1` | The image model was shut down and the text model shuts down on December 1, 2026. Changed in code on November 20, 2026. |
 | Creativity slider | Sets the Gemini temperature | Removed | Google says sampling parameters such as `temperature` and `top_p` are ignored on `gemini-3.5-flash-lite`. |
+| Corrections note (November 21, 2026) | This correction changes documentation only and does not fix the model ID or TypeScript issues | I changed the model IDs in the code on November 20, 2026 (commit `c05b0f0`, pull request #4). Only the TypeScript type errors remain unfixed. | The note predated the code change. |
 
 The file type checks, the 10MB limit, the five styles, the model IDs in the code and the development only logging were rechecked and are accurate.
 
