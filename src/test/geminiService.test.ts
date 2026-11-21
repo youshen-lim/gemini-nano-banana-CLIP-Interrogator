@@ -19,7 +19,6 @@ describe('geminiService', () => {
   const mockApiKey = 'test-api-key';
   const mockImageData = 'data:image/png;base64,mockdata';
   const mockStyle = 'Photorealistic';
-  const mockCreativity = 0.8;
   const mockNegativePrompt = '';
 
   beforeEach(() => {
@@ -30,13 +29,13 @@ describe('geminiService', () => {
   describe('generatePromptFromImage', () => {
     it('should throw error when API key is missing', async () => {
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, '', mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, '', mockNegativePrompt)
       ).rejects.toThrow('API key is missing.');
     });
 
     it('should throw error when image data format is invalid', async () => {
       await expect(
-        generatePromptFromImage('invalid-data', mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage('invalid-data', mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('Invalid image data format.');
     });
 
@@ -46,7 +45,7 @@ describe('geminiService', () => {
       );
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('Invalid API key. Please check your Gemini API key in Advanced Settings.');
     });
 
@@ -56,7 +55,7 @@ describe('geminiService', () => {
       );
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('API rate limit exceeded. Please wait a moment and try again.');
     });
 
@@ -66,7 +65,7 @@ describe('geminiService', () => {
       );
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('Network error. Please check your internet connection and try again.');
     });
 
@@ -86,7 +85,7 @@ describe('geminiService', () => {
 
       mockGenerateContent.mockResolvedValue(mockResponse);
 
-      const result = await generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt);
+      const result = await generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt);
 
       expect(result).toContain('A detailed scene');
       expect(result).toContain('photorealistic');

@@ -1,4 +1,4 @@
-# Reverse Engineer Images to Generate Prompts for Gemini 2.5 Flash Image (aka nano-banana)
+# Reverse Engineer Images to Generate Prompts for Gemini Nano Banana 2.1
 
 A self hosted React app that turns an image into a text prompt for Gemini image generation. Gemini 3.5 Flash Lite does all the image analysis through the Gemini API. No CLIP model runs. The name comes from the CLIP Interrogator idea of turning an image into a prompt.
 
@@ -30,7 +30,7 @@ Gemini returns structured JSON fields such as subject, setting, lighting and atm
 - `.gitignore` excludes `.env` files. The app does not read them.
 
 ### Prompt Design for Nano-Banana
-- The system instruction targets Gemini 3.1 Flash Image (Nano Banana 2).
+- The system instruction targets Gemini Nano Banana 2.1.
 - The prompt is written as a narrative scene, not a keyword list.
 - The instruction asks for camera and lighting terms.
 - The JSON schema has eight fields, including an atmosphere field.
@@ -137,7 +137,6 @@ Coverage needs `@vitest/coverage-v8`, which is not in `package.json`. Install it
 
 **Configuration Options**
 - Multiple artistic styles: Photorealistic, Digital Painting, Watercolor, Anime, Cinematic
-- Creativity slider (sets the Gemini temperature)
 - Negative prompt (added to the instructions as concepts to avoid)
 - API key entry in Advanced Settings, kept in memory for the current browser tab
 
@@ -169,16 +168,16 @@ The app has not been deployed to any cloud service. `npm run build` writes a sta
 
 The application uses the [Gemini API](https://aistudio.google.com/docs/image-generation) with these model IDs in `services/geminiService.ts`:
 - **gemini-3.5-flash-lite**: For image analysis and prompt writing
-- **gemini-3.1-flash-image**: For image generation
+- **gemini-nano-banana-2.1**: For image generation
 
-**Model status (checked November 20, 2026):** The app previously used `gemini-2.5-flash-image-preview`, which Google's [deprecations page](https://aistudio.google.com/docs/deprecations) lists as shut down on January 15, 2026, and `gemini-2.5-flash`, which Google lists for shutdown on December 1, 2026. The code now uses `gemini-3.1-flash-image` and `gemini-3.5-flash-lite`. Google's [models page](https://aistudio.google.com/docs/models) labels both as stable. The app still calls both through `generateContent`. Google's image generation examples use the newer Interactions API, and its docs do not state whether `gemini-3.1-flash-image` accepts `generateContent`. The 36 unit tests pass, but they mock the Gemini API. Live image generation with the new models has not been tested.
+**Model status (checked November 20, 2026):** The app previously used `gemini-2.5-flash-image-preview`, which Google's [deprecations page](https://aistudio.google.com/docs/deprecations) lists as shut down on January 15, 2026, and `gemini-2.5-flash`, which Google lists for shutdown on December 1, 2026. The code now uses `gemini-nano-banana-2.1` for images and `gemini-3.5-flash-lite` for analysis. Google's model pages label both as stable. Google's [image generation guide](https://aistudio.google.com/docs/image-generation?generate-content=true) shows `gemini-nano-banana-2.1` called through `generateContent` and read from `inlineData`, which matches the app. The 36 unit tests pass, but they mock the Gemini API. Live calls have not been tested.
 
 ## ⚠️ Limitations
 
 - No CLIP model runs. Gemini 3.5 Flash Lite does all image analysis.
 - The README reports no results on prompt quality, image quality, latency or cost.
 - Tests mock the Gemini API. They do not show that live calls work.
-- Live calls to `gemini-3.1-flash-image` and `gemini-3.5-flash-lite` have not been tested. If image generation fails, the next step is to move the image call to the Interactions API with `gemini-nano-banana-2.1`, which Google names as the replacement for the old preview model.
+- Live calls to `gemini-nano-banana-2.1` and `gemini-3.5-flash-lite` have not been tested. The unit tests mock the Gemini API.
 - The API key is entered in the browser and sent from the browser to Google. The app has no server to protect it.
 - The app has not been deployed to any cloud service.
 - `npx tsc --noEmit` reports type errors. The build does not run a type check.
@@ -217,10 +216,11 @@ The following items were corrected on **November 20, 2026** after a check agains
 | Coverage command | Listed with no note | Needs `@vitest/coverage-v8` | The coverage provider is not in `package.json`. |
 | Screenshot | `hero-interface.png` | Existing screenshot file | The referenced image never existed in the repository. |
 | Model status | Not stated | Preview image model listed as shut down on January 15, 2026 | Google deprecations page. |
-| Model IDs | `gemini-2.5-flash` and `gemini-2.5-flash-image-preview` | `gemini-3.5-flash-lite` and `gemini-3.1-flash-image` | The image model was shut down and the text model shuts down on December 1, 2026. Changed in code on November 20, 2026. |
+| Model IDs | `gemini-2.5-flash` and `gemini-2.5-flash-image-preview` | `gemini-3.5-flash-lite` and `gemini-nano-banana-2.1` | The image model was shut down and the text model shuts down on December 1, 2026. Changed in code on November 20, 2026. |
+| Creativity slider | Sets the Gemini temperature | Removed | Google says sampling parameters such as `temperature` and `top_p` are ignored on `gemini-3.5-flash-lite`. |
 
 The file type checks, the 10MB limit, the five styles, the model IDs in the code and the development only logging were rechecked and are accurate.
 
 ---
 
-**Uses the Google Gemini API** | **Prompts are written for Gemini 3.1 Flash Image (Nano Banana 2)**
+**Uses the Google Gemini API** | **Prompts are written for Gemini Nano Banana 2.1**
