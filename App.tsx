@@ -34,7 +34,6 @@ const App: React.FC = () => {
   const [apiKey, setApiKey] = useState<string>('');
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [isSettingsAnimating, setIsSettingsAnimating] = useState<boolean>(false);
-  const [creativity, setCreativity] = useState<number>(0.8);
   const [negativePrompt, setNegativePrompt] = useState<string>('');
 
   const handleImageUpload = (base64: string, file: File) => {
@@ -62,14 +61,14 @@ const App: React.FC = () => {
     setGeneratedImageUrl(null);
 
     try {
-      const result = await generatePromptFromImage(uploadedImage, selectedStyle, apiKey, creativity, negativePrompt);
+      const result = await generatePromptFromImage(uploadedImage, selectedStyle, apiKey, negativePrompt);
       setOptimizedPrompt(result);
     } catch (err) {
       setError(err instanceof Error ? `Failed to analyze image: ${err.message}` : 'An unknown error occurred.');
     } finally {
       setIsAnalyzing(false);
     }
-  }, [uploadedImage, selectedStyle, isAnalyzing, apiKey, creativity, negativePrompt]);
+  }, [uploadedImage, selectedStyle, isAnalyzing, apiKey, negativePrompt]);
 
   const handleGenerateImage = useCallback(async () => {
     if (!optimizedPrompt || isGeneratingImage || !apiKey) {
@@ -126,21 +125,6 @@ const App: React.FC = () => {
             <div className="mt-6 border-t border-slate-200 pt-6">
               <h2 className="text-xl font-semibold text-[#1974e8] mb-4">3. Generation Controls</h2>
               <div className="space-y-4">
-                <div>
-                  <label htmlFor="creativity-slider" className="block text-sm font-medium text-slate-700 mb-1">
-                    Creativity: <span className="font-bold text-[#1974e8]">{creativity.toFixed(1)}</span>
-                  </label>
-                  <input
-                    id="creativity-slider"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={creativity}
-                    onChange={(e) => setCreativity(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
                 <div>
                   <div className="flex items-center space-x-1.5 mb-1">
                     <label htmlFor="negative-prompt" className="block text-sm font-medium text-slate-700">

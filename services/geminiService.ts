@@ -1,9 +1,9 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const PROMPT_OPTIMIZER_MODEL = 'gemini-2.5-flash';
-const IMAGE_GENERATION_MODEL = 'gemini-2.5-flash-image-preview';
+const PROMPT_OPTIMIZER_MODEL = 'gemini-3.5-flash-lite';
+const IMAGE_GENERATION_MODEL = 'gemini-nano-banana-2.1';
 
-const OPTIMIZER_SYSTEM_INSTRUCTION = `You are an expert visual analyst and prompt engineer specifically for Gemini 2.5 Flash Image (nano-banana). Your task is to analyze an uploaded image and create optimized prompts that leverage nano-banana's unique strengths:
+const OPTIMIZER_SYSTEM_INSTRUCTION = `You are an expert visual analyst and prompt engineer specifically for Gemini Nano Banana 2.1. Your task is to analyze an uploaded image and create optimized prompts that leverage nano-banana's unique strengths:
 
 1. NARRATIVE DESCRIPTIONS: Describe scenes, don't just list keywords. Use descriptive paragraphs that tell a story.
 2. PHOTOREALISTIC EXCELLENCE: For realistic images, use photography terminology (camera angles, lens types, lighting setups, technical details).
@@ -11,7 +11,7 @@ const OPTIMIZER_SYSTEM_INSTRUCTION = `You are an expert visual analyst and promp
 4. DETAILED SCENE COMPOSITION: Include specific details about foreground, background, lighting conditions, and atmospheric elements.
 5. STYLE CONSISTENCY: Ensure all elements work cohesively within the chosen artistic style.
 
-Analyze the uploaded image thoroughly and populate the JSON schema with rich, descriptive content that will produce high-quality, coherent images when used with Gemini 2.5 Flash Image.`;
+Analyze the uploaded image thoroughly and populate the JSON schema with rich, descriptive content that will produce high-quality, coherent images when used with Gemini Nano Banana 2.1.`;
 
 const responseSchema = {
     type: Type.OBJECT,
@@ -57,7 +57,6 @@ export async function generatePromptFromImage(
   imageData: string, 
   style: string, 
   apiKey: string, 
-  creativity: number,
   negativePrompt: string
 ): Promise<string> {
   if (!apiKey) {
@@ -78,7 +77,7 @@ export async function generatePromptFromImage(
       },
   };
   
-  let analysisText = `Analyze this image with the precision of a professional photographer and art director. Create a comprehensive scene description optimized for Gemini 2.5 Flash Image generation.
+  let analysisText = `Analyze this image with the precision of a professional photographer and art director. Create a comprehensive scene description optimized for Gemini Nano Banana 2.1 generation.
 
 Focus on:
 - NARRATIVE DESCRIPTION: Tell the story of what you see, don't just list elements
@@ -87,7 +86,7 @@ Focus on:
 - STYLE CONSISTENCY: Ensure all elements align with the "${style}" aesthetic
 - COMPOSITIONAL ELEMENTS: Detail the framing, perspective, and visual hierarchy
 
-Fill out all JSON schema fields with rich, descriptive content that will produce a high-quality, coherent image when used with Gemini 2.5 Flash Image. Each field should contain complete, descriptive sentences rather than keyword lists.`;
+Fill out all JSON schema fields with rich, descriptive content that will produce a high-quality, coherent image when used with Gemini Nano Banana 2.1. Each field should contain complete, descriptive sentences rather than keyword lists.`;
 
   if (negativePrompt && negativePrompt.trim() !== '') {
     analysisText += `
@@ -104,8 +103,6 @@ IMPORTANT: Avoid including these concepts or elements in your description: "${ne
       contents: { parts: [imagePart, textPart] },
       config: {
         systemInstruction: OPTIMIZER_SYSTEM_INSTRUCTION,
-        temperature: creativity,
-        topP: 0.95,
         responseMimeType: "application/json",
         responseSchema: responseSchema,
       }
@@ -174,7 +171,7 @@ IMPORTANT: Avoid including these concepts or elements in your description: "${ne
         details: sceneData.details?.trim() || defaults.details,
     };
 
-    // Create a narrative-style prompt optimized for Gemini 2.5 Flash Image
+    // Create a narrative-style prompt optimized for Gemini Nano Banana 2.1
     const optimizedPrompt = `${finalSceneData.subject} ${finalSceneData.action}, ${finalSceneData.setting}. ${finalSceneData.atmosphere}. The scene is rendered in ${finalSceneData.style} with ${finalSceneData.lighting}. ${finalSceneData.composition}. ${finalSceneData.details}.`;
 
     if (!optimizedPrompt) {

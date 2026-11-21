@@ -20,10 +20,10 @@ const NanoBananaIcon: React.FC<{ className?: string }> = ({ className }) => (
 const Header: React.FC = () => (
   <header className="flex flex-col items-start">
     <h1 className="text-4xl sm:text-5xl font-medium tracking-tighter text-slate-900">
-      Reverse Engineer Images to Generate Prompts for Gemini 2.5 Flash Image (aka nano-banana)
+      Reverse Engineer Images to Generate Prompts for Gemini Nano Banana 2.1
     </h1>
     <p className="mt-6 text-lg text-slate-600 max-w-3xl">
-      Self-hosted CLIP Interrogator application to analyze image and generate descriptive JSON-format prompts for high-quality image generation from Gemini 2.5 Flash Image (aka nano-banana) using Gemini API.
+      Self-hosted CLIP Interrogator application to analyze image and generate descriptive JSON-format prompts for high-quality image generation from Gemini Nano Banana 2.1 using Gemini API.
     </p>
   </header>
 );

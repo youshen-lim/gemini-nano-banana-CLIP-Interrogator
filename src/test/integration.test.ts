@@ -19,7 +19,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
   const mockApiKey = 'test-api-key';
   const mockImageData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
   const mockStyle = 'Photorealistic';
-  const mockCreativity = 0.8;
   const mockNegativePrompt = 'blurry, text';
 
   beforeEach(() => {
@@ -64,7 +63,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
         mockImageData, 
         mockStyle, 
         mockApiKey, 
-        mockCreativity, 
         mockNegativePrompt
       );
 
@@ -111,7 +109,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
         mockImageData, 
         mockStyle, 
         mockApiKey, 
-        mockCreativity, 
         'blurry, text, watermarks, low quality'
       );
 
@@ -145,7 +142,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
           mockImageData, 
           style, 
           mockApiKey, 
-          mockCreativity, 
           ''
         );
 
@@ -176,7 +172,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
         mockImageData, 
         mockStyle, 
         mockApiKey, 
-        mockCreativity, 
         mockNegativePrompt
       );
 
@@ -199,7 +194,7 @@ describe('Integration Tests - End-to-End Workflow', () => {
       mockGenerateContent.mockResolvedValueOnce(mockPromptResponse);
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('The AI model returned an invalid response format');
     });
 
@@ -217,7 +212,6 @@ describe('Integration Tests - End-to-End Workflow', () => {
         mockImageData, 
         mockStyle, 
         mockApiKey, 
-        mockCreativity, 
         mockNegativePrompt
       );
 
@@ -233,7 +227,7 @@ describe('Integration Tests - End-to-End Workflow', () => {
       mockGenerateContent.mockResolvedValueOnce({ text: '' });
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('The model returned an empty response');
     });
 
@@ -241,13 +235,13 @@ describe('Integration Tests - End-to-End Workflow', () => {
       mockGenerateContent.mockRejectedValueOnce(new Error('Request timeout'));
 
       await expect(
-        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage(mockImageData, mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('Request timed out');
     });
 
     it('should validate image data format before processing', async () => {
       await expect(
-        generatePromptFromImage('invalid-image-data', mockStyle, mockApiKey, mockCreativity, mockNegativePrompt)
+        generatePromptFromImage('invalid-image-data', mockStyle, mockApiKey, mockNegativePrompt)
       ).rejects.toThrow('Invalid image data format');
     });
   });

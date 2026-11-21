@@ -46,7 +46,6 @@ describe('Sample Output Validation', () => {
       sampleImageData,
       'Photorealistic',
       mockApiKey,
-      0.8,
       'blurry, low quality'
     );
 
@@ -112,7 +111,6 @@ describe('Sample Output Validation', () => {
         sampleImageData,
         style.name,
         mockApiKey,
-        0.8,
         ''
       );
 
@@ -152,7 +150,6 @@ describe('Sample Output Validation', () => {
       sampleImageData,
       'Photorealistic',
       mockApiKey,
-      0.8,
       ''
     );
 
