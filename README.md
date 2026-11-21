@@ -219,6 +219,7 @@ The following items were corrected on **November 20, 2026** after a check agains
 | Model IDs | `gemini-2.5-flash` and `gemini-2.5-flash-image-preview` | `gemini-3.5-flash-lite` and `gemini-nano-banana-2.1` | The image model was shut down and the text model shuts down on December 1, 2026. Changed in code on November 20, 2026. |
 | Creativity slider | Sets the Gemini temperature | Removed | Google says sampling parameters such as `temperature` and `top_p` are ignored on `gemini-3.5-flash-lite`. |
 | Corrections note (November 21, 2026) | This correction changes documentation only and does not fix the model ID or TypeScript issues | I changed the model IDs in the code on November 20, 2026 (commit `c05b0f0`, pull request #4). Only the TypeScript type errors remain unfixed. | The note predated the code change. |
+| App metadata (November 21, 2026) | `metadata.json` description: a CLIP Interrogator application that generates descriptive JSON format prompts | Turns an image into a text prompt for Gemini Nano Banana 2.1. Gemini 3.5 Flash Lite analyzes the image. No CLIP model runs. | The description contradicted the CLIP and Output rows above |
 
 The file type checks, the 10MB limit, the five styles, the model IDs in the code and the development only logging were rechecked and are accurate.
 

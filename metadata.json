@@ -1,5 +1,5 @@
 {
   "name": "Reverse Engineer Images to Generate Prompts for Gemini Nano Banana 2.1",
-  "description": "A CLIP Interrogator application to analyze image and generate descriptive JSON-format prompts for high-quality image generation from Gemini Nano Banana 2.1 using Gemini API.",
+  "description": "Turns an image into a text prompt for Gemini Nano Banana 2.1. Gemini 3.5 Flash Lite analyzes the image. No CLIP model runs.",
   "requestFramePermissions": []
 }
