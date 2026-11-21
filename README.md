@@ -147,21 +147,20 @@ Coverage needs `@vitest/coverage-v8`, which is not in `package.json`. Install it
 - Copy to clipboard
 - Plain error messages for common API failures
 
-*Additional screenshots showing the complete workflow will be added as the application evolves.*
 
 </details>
 
 ## ☁️ Deployment
 
-The app has not been deployed to any cloud service. `npm run build` writes a static site to `dist/`, so any static host should be able to serve it. This has not been tested. The repository has no Dockerfile and no cloud configuration. Each user enters their own API key in the browser.
+The app has not been deployed to any cloud service. `npm run build` writes a static site to `dist/`. No hosting target has been tested. The repository has no Dockerfile and no cloud configuration. Each user enters their own API key in the browser.
 
 ## 🔒 Security Notes
 
 - **API key**: You paste your Gemini API key into Advanced Settings. The app keeps it in memory for the current browser tab and does not save it. The key is not built into the JavaScript bundle. Your browser sends it directly to the Gemini API, so anyone with access to that browser session can see it. Do not host this app publicly with a shared key.
 - **File Validation**: File uploads are validated for type and size (PNG, JPG, WEBP up to 10MB).
 - **Input checks**: The app checks the image file type and size and the image data format. It does not sanitize text inputs. The negative prompt is sent to Gemini as typed.
-- **HTTPS Required**: HTTPS recommended for production deployments
-- **No Data Persistence**: No user data or API keys are stored permanently
+- **HTTPS**: Use HTTPS if you host the app.
+- **Browser storage**: The app does not write user data or API keys to permanent browser storage.
 - **Data sent to Google**: Uploaded images and prompts are sent to the Gemini API. Google's terms apply to that data.
 - **Development Logging**: Console statements are wrapped in development only checks.
 - **No health check**: The app is a static site with no server and no health check endpoint.
@@ -179,7 +178,7 @@ The application uses the [Gemini API](https://aistudio.google.com/docs/image-gen
 - No CLIP model runs. Gemini 2.5 Flash does all image analysis.
 - The README reports no results on prompt quality, image quality, latency or cost.
 - Tests mock the Gemini API. They do not show that live calls work.
-- The image model ID in the code (`gemini-2.5-flash-image-preview`) is a preview model. Google's deprecations page lists it as shut down on January 15, 2026, so the image generation step may fail. A model update is flagged for the author and has not been made.
+- The image generation step uses a model ID that Google lists as shut down. A model update is flagged for the author and has not been made.
 - The API key is entered in the browser and sent from the browser to Google. The app has no server to protect it.
 - The app has not been deployed to any cloud service.
 - `npx tsc --noEmit` reports type errors. The build does not run a type check.
